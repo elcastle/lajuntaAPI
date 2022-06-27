@@ -30,7 +30,7 @@ class usuario {
          return $sentencia->fetch();
          
     }
-    function getAllUsuario(){
+    function getAllUsuarios(){
         $conexion = new ConexionPDO();       
         $sentencia = $conexion->mysql->query("SELECT * FROM usuario");
         $sentencia->execute();
@@ -48,13 +48,16 @@ class usuario {
                 return $lista;
             }
 
-    // function updateusuariobyID($id){
-    //     $conexion = new ConexionPDO();
-    //   //  $sql = "UPDATE usuario SET Column1=Value1, Column2=Value2,… WHERE 'id' IS :id";
-    //      $sentencia = $conexion->mysql->prepare($sql);
-    //      $sentencia->bindParam(":id", $id);
-    //      return $sentencia->execute();
-    // }
+    function updateUsuario($id, $username, $password, $id_cargo){
+        $conexion = new ConexionPDO();
+        $sql = "UPDATE usuario SET username = :username, password = :password, id_cargo = :id_cargo WHERE id = :id;";
+        $sentencia = $conexion->mysql->prepare($sql);
+        $sentencia->bindParam(":username", $username);
+        $sentencia->bindParam(":password", $password);
+        $sentencia->bindParam(":id_cargo", $id_cargo);
+        $sentencia->bindParam(":id", $id);
+        return $sentencia->execute();
+    }
     
 
     function deleteUsuariobyID($id){

@@ -14,16 +14,23 @@ $action = isset($_POST["action"]) ? $_POST["action"] : $_GET["action"];
 
 switch ($action) {
 
-case"getallusuarios":
+case "createUsuario":
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $id_cargo = $_POST['id_cargo'];
+        $reg = new Usuario();
+        $reg->createUsuario($username, $password, $id_cargo);
+        break;
+case"getAllUsuarios":
     $reg = new Usuario();
-    $usuariolist = $reg->getAllUsuario();
+    $usuariolist = $reg->getAllUsuarios();
     header("Content-Type: application/json; charset=UTF8");
     // convierte la respuesta en un json y la envia
     $json=json_encode($usuariolist, JSON_PRETTY_PRINT, JSON_UNESCAPED_UNICODE);
     echo($json);
         break;
 
-case "deleteusuario":
+case "deleteUsuario":
     $reg = new Usuario();
     $id = $_POST['id'];
     if($reg->deleteUsuariobyID($id)){
@@ -34,7 +41,17 @@ case "deleteusuario":
         break;
     };
 
-case "getusuario":
+case "updateusuario":
+        $id = $_POST['id'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $id_cargo = $_POST['id_cargo'];
+        $reg = new Usuario();
+        $reg->updateUsuario($id, $username, $password, $id_cargo);
+        
+        break;
+
+case "getUsuario":
     $reg = new Usuario();
     $respuesta = $reg->getUsuariobyID($_GET["id"]);
     header("Content-Type: application/json; charset=UTF8");

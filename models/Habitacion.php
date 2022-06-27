@@ -13,8 +13,19 @@ class Habitacion{
 
     function getAllHabitaciones(){
         $conexion = new ConexionPDO();
-        return $conexion->mysql->query("SELECT * FROM habitacion");
+        $sentencia = $conexion->mysql->query("SELECT * FROM habitacion");
+        $sentencia->execute();
+        $respuesta=$sentencia->fetchAll();
+        foreach($respuesta as $r){
+            $habitacion = new Habitacion();
+            $habitacion->id=$r[0];
+            $habitacion->nombre=$r[1];
+            $habitacion->num_personas=$r[2];
+            $habitacion->costo_persona=$r[3];
+            $lista[] = $habitacion;
     }
+    return $lista;
+}
 
     
     function getHabitacionbyID($id){
