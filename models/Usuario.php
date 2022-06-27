@@ -39,9 +39,10 @@ class usuario {
         // convierte la respuesta sql en un arreglo de usuarios
         foreach($respuesta as $r){
             $usuario = new Usuario();
-            $usuario->username=$r[0];
-            $usuario->password=$r[1];
-            $usuario->id_cargo=$r[2];
+            $usuario->id=$r[0];
+            $usuario->username=$r[1];
+            $usuario->password=$r[2];
+            $usuario->id_cargo=$r[3];
             $lista[] = $usuario;
         }
         // Devuelve la lista (arreglo de usuarios)

@@ -19,7 +19,11 @@ case "createUsuario":
         $password = $_POST['password'];
         $id_cargo = $_POST['id_cargo'];
         $reg = new Usuario();
-        $reg->createUsuario($username, $password, $id_cargo);
+        if($reg->createUsuario($username, $password, $id_cargo)){
+            echo("Usuario creado exitosamente.");
+        }else{
+            echo("Hubo un error al crear el usuario.");
+        };
         break;
 case"getAllUsuarios":
     $reg = new Usuario();
