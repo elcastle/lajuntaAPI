@@ -21,7 +21,7 @@ case "createcontacto":
     $comentario = $_POST['comentario'];
     $reg = new Contacto();
     $reg->createContacto($nombre, $correo, $fono, $comentario);
-    header("Location: ../view/listarContactos.php");
+    
     break;
 case "getcontacto":
         $reg = new Contacto();

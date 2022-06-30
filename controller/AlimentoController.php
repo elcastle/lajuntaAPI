@@ -19,8 +19,13 @@ case "createalimento":
     $cantidad = $_POST['cantidad'];
     $medida = $_POST['medida'];
     $reg = new Alimento();
-    $reg->createAlimento($nombre, $cantidad, $medida);
-    header("Location: ../view/listarAlimentos.php");
+    if($reg->createAlimento($nombre, $cantidad, $medida)){
+        echo("Alimento creado exitosamente.");
+    }else{
+        echo("Hubo un error al crear el Alimento.");
+    };
+;
+    
     break;
 
 case "getalimento":
