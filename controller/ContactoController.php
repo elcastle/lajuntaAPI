@@ -48,7 +48,6 @@ case "updatecontacto":
     $comentario = $_POST['comentario'];
     $reg = new Contacto();
     $reg->updateContacto($id, $nombre, $correo, $fono, $comentario);
-    header("Location: ../view/listarContactos.php");
     break;
 
 case "deletecontacto":

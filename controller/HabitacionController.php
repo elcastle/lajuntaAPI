@@ -18,9 +18,9 @@ case "createHabitacion":
     $costo_persona = $_POST['costo_persona'];
     $reg = new Habitacion();
     if($reg->createHabitacion($nombre, $num_personas, $costo_persona)){
-    echo("Habitaciún creada exitosamente.");
+    echo("Habitación creada exitosamente.");
     }else{
-    echo("Hubo un error al crear el Habitación.");
+    echo("Hubo un error al crear la Habitación.");
     };
     
     break;
@@ -38,17 +38,23 @@ case "updateHabitacion":
             $num_personas = $_POST['num_personas'];
             $costo_persona = $_POST['costo_persona'];
             $reg = new Habitacion();
-            $reg->updateHabitacion($id, $nombre, $num_personas, $costo_persona);
+            if($reg->updateHabitacion($id, $nombre, $num_personas, $costo_persona)){ 
+                 echo("Habitación actualizada exitosamente.");
+            }else{
+            echo("Hubo un error al actualizar la Habitación.");
+            };
+
+            ;
 
             break;        
 case "deleteHabitacion":
     $reg = new Habitacion();
     $id = $_POST['id'];
     if($reg->deleteHabitacionbyID($id)){
-        echo("habitacion eliminada.");
+        echo("habitación eliminada.");
         break;
     }else{
-        echo("Error, el habitacion no pudo ser eliminado.");
+        echo("Error, la habitación no pudo ser eliminada.");
         break;
     };
 
