@@ -51,7 +51,13 @@ case "updateusuario":
         $password = $_POST['password'];
         $id_cargo = $_POST['id_cargo'];
         $reg = new Usuario();
-        $reg->updateUsuario($id, $username, $password, $id_cargo);
+        if($reg->updateUsuario($id, $username, $password, $id_cargo)){
+            echo("usuario actualizado.");
+            break;
+        }else{
+            echo("Error, el usuario no pudo ser actualizado.");
+            break;
+        }
         
         break;
 

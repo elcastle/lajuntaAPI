@@ -77,4 +77,15 @@ class Habitacion{
          $sentencia->bindParam(":id", $myid);
          return $sentencia->execute();
             }
+
+    function updateHabitacion($id, $nombre, $num_personas, $costo_persona){
+            $conexion = new ConexionPDO();
+            $sql = "UPDATE habitacion SET nombre = :nombre, num_personas = :num_personas, costo_persona = :costo_persona WHERE id = :id;";
+            $sentencia = $conexion->mysql->prepare($sql);
+            $sentencia->bindParam(":nombre", $nombre);
+            $sentencia->bindParam(":num_personas", $num_personas);
+            $sentencia->bindParam(":costo_persona", $costo_persona);
+            $sentencia->bindParam(":id", $id);
+            return $sentencia->execute();
+            }
 }

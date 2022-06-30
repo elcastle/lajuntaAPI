@@ -49,8 +49,14 @@ case "updateInsumo":
     $cantidad = $_POST['cantidad'];
     $medida = $_POST['medida'];
     $reg = new Insumo();
-    $reg->updateInsumo($id, $nombre, $cantidad, $medida);
-    header("Location: ../view/listarInsumos.php");
+    if($reg->updateInsumo($id, $nombre, $cantidad, $medida)){
+    echo("Insumo actualizado.");
+    break;
+}else{
+    echo("Error, el insumo no pudo ser actualizado.");
+    break;
+};
+
     break;
 
 case "deleteInsumo":
