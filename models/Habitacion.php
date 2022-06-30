@@ -10,7 +10,15 @@ class Habitacion{
     public $num_personas;
     public $costo_persona;
     
-
+    function createHabitacion($nombre, $num_personas, $costo_persona){
+        $conexion = new ConexionPDO();
+        $sql = "INSERT INTO habitacion (nombre, num_personas, costo_persona) VALUES (:nombre, :num_personas, :costo_persona)";
+        $sentencia = $conexion->mysql->prepare($sql);
+        $sentencia->bindParam(":nombre", $nombre);
+        $sentencia->bindParam(":num_personas", $num_personas);
+        $sentencia->bindParam(":costo_persona", $costo_persona);
+        return $sentencia->execute();
+        }
     function getAllHabitaciones(){
         $conexion = new ConexionPDO();
         $sentencia = $conexion->mysql->query("SELECT * FROM habitacion");
@@ -23,9 +31,9 @@ class Habitacion{
             $habitacion->num_personas=$r[2];
             $habitacion->costo_persona=$r[3];
             $lista[] = $habitacion;
-    }
-    return $lista;
-}
+        }
+        return $lista;
+        }
 
     
     function getHabitacionbyID($id){
@@ -43,7 +51,7 @@ class Habitacion{
             
             return $h;
         }
-    }
+            }
     
 
     function getAllHabitacionesbeta(){
@@ -59,7 +67,7 @@ class Habitacion{
         }
         // Devuelve la lista con el id de todas las habitaciones
                 return $lista;
-    }
+            }
 
     function deleteHabitacionbyID($id){
         $conexion = new ConexionPDO(); 
@@ -68,5 +76,5 @@ class Habitacion{
          $myid = (int)$id;
          $sentencia->bindParam(":id", $myid);
          return $sentencia->execute();
-    }
+            }
 }

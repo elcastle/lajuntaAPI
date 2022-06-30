@@ -19,8 +19,11 @@ case "createInsumo":
     $cantidad = $_POST['cantidad'];
     $medida = $_POST['medida'];
     $reg = new Insumo();
-    $reg->createInsumo($nombre, $cantidad, $medida);
-    header("Location: ../view/listarInsumos.php");
+    if($reg->createInsumo($nombre, $cantidad, $medida)){
+    echo("Insumo creado exitosamente.");
+}else{
+    echo("Hubo un error al crear el Insumo.");
+};
     break;
 
 case "getInsumo":

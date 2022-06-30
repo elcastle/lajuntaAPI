@@ -12,7 +12,18 @@ $result = "";
 $action = isset($_POST["action"]) ? $_POST["action"] : $_GET["action"];
 
 switch ($action) {
-
+case "createHabitacion":
+    $nombre = $_POST['nombre'];
+    $num_personas = $_POST['num_personas'];
+    $costo_persona = $_POST['costo_persona'];
+    $reg = new Habitacion();
+    if($reg->createHabitacion($nombre, $num_personas, $costo_persona)){
+    echo("Habitaciún creada exitosamente.");
+    }else{
+    echo("Hubo un error al crear el Habitación.");
+    };
+    
+    break;
 case"getAllHabitaciones":
     $reg = new Habitacion();
     $habitacionlist = $reg->getAllHabitaciones();
