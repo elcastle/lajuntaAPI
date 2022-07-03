@@ -36,21 +36,38 @@ class Habitacion{
         }
 
     
+    // function getHabitacionbyID($id){
+    //     $conexion = new ConexionPDO();
+    //     $sql = $conexion->mysql->prepare("SELECT * FROM habitacion WHERE id = :id");
+    //     $sql->bindParam(":id", $id);
+    //     if($sql->execute()){
+    //         $res = $sql->fetch();
+    //         $h = new Habitacion();
+    //         $h->id = $res[0];
+    //         $h->nombre = $res[1];
+    //         $h->num_personas = $res[2];
+    //         $h->costo_persona = $res[3];
+            
+    //         return $h;
+    //     }
+    //         }
+
     function getHabitacionbyID($id){
         $conexion = new ConexionPDO();
-        $sql = $conexion->mysql->prepare("SELECT * FROM habitacion WHERE id = :id ");
-        
-        $sql->bindParam(":id", $id);
-        if($sql->execute()){
-            $res = $sql->fetch();
-            $h = new Habitacion();
-            $h->id = $res[0];
-            $h->nombre = $res[1];
-            $h->num_personas = $res[2];
-            $h->costo_persona = $res[3];
-            
-            return $h;
-        }
+        $sql = "SELECT * FROM habitacion WHERE id = :id";
+        $sentencia = $conexion->mysql->prepare($sql);
+        $myid = (int)$id;
+        $sentencia->bindParam(":id", $myid);
+        $sentencia->execute();
+        $res = array();
+        $res = $sentencia->fetch();
+        $h = new Habitacion();
+        $h->id = $res[0];
+        $h->nombre = $res[1];
+        $h->num_personas = $res[2];
+        $h->costo_persona = $res[3];
+        return $h;
+    
             }
     
 
@@ -75,7 +92,11 @@ class Habitacion{
          $sentencia = $conexion->mysql->prepare($sql);
          $myid = (int)$id;
          $sentencia->bindParam(":id", $myid);
-         return $sentencia->execute();
+        if($sentencia->execute()){
+            return true;
+         }else{
+            return false;
+         };
             }
 
     function updateHabitacion($id, $nombre, $num_personas, $costo_persona){

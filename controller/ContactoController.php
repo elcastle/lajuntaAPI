@@ -14,7 +14,7 @@ $action = isset($_POST["action"]) ? $_POST["action"] : $_GET["action"];
 
 switch ($action) {
 
-case "createcontacto":
+case "createContacto":
     $nombre = $_POST['nombre'];
     $correo = $_POST['correo'];
     $fono = $_POST['fono'];
@@ -23,7 +23,7 @@ case "createcontacto":
     $reg->createContacto($nombre, $correo, $fono, $comentario);
     
     break;
-case "getcontacto":
+case "getContacto":
         $reg = new Contacto();
         $respuesta = $reg->getContactobyID($_GET["id"]);
         header("Content-Type: application/json; charset=UTF8");
@@ -31,7 +31,7 @@ case "getcontacto":
         echo($json);
         break;
 
-case "getallcontactos":
+case "getAllContactos":
     $reg = new Contacto();
     $contactolist = $reg->getAllContactos();
     header("Content-Type: application/json; charset=UTF8");
@@ -40,7 +40,7 @@ case "getallcontactos":
     echo($json);
         break;
 
-case "updatecontacto":
+case "updateContacto":
     $id = $_POST['id'];
     $nombre = $_POST['nombre'];
     $correo = $_POST['correo'];
@@ -50,7 +50,7 @@ case "updatecontacto":
     $reg->updateContacto($id, $nombre, $correo, $fono, $comentario);
     break;
 
-case "deletecontacto":
+case "deleteContacto":
     $reg = new Contacto();
     $id = $_POST['id'];
     if($reg->deleteContactobyID($id)){

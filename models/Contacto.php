@@ -24,7 +24,19 @@ class Contacto{
 
     function getAllContactos(){
         $conexion = new ConexionPDO();
-        return $conexion->mysql->query("SELECT * FROM contacto");
+        $sentencia = $conexion->mysql->query("SELECT * FROM contacto");
+        $sentencia->execute();
+        $respuesta=$sentencia->fetchAll();
+        foreach($respuesta as $r){
+            $contacto = new Contacto();
+            $contacto->id=$r[0];
+            $contacto->nombre=$r[1];
+            $contacto->correo=$r[2];
+            $contacto->fono=$r[3];
+            $contacto->comentario=$r[3];
+            $lista[] = $contacto;
+        }
+        return $lista;
     }
     function getContactobyID($id){
         $conexion = new ConexionPDO();
@@ -55,10 +67,11 @@ class Contacto{
     }
 
     function deleteContactobyID($id){
-        $conexion = new ConexionPDO();
-        $sql = "DELETE FROM contacto WHERE 'id'= :id";
-        $sentencia = $conexion->mysql->prepare($sql);
-        $sentencia->bindParam(":id", $id);
-        return $sentencia->execute();
+        $conexion = new ConexionPDO(); 
+        $sql = "DELETE FROM contacto WHERE id = :id";
+         $sentencia = $conexion->mysql->prepare($sql);
+         $myid = (int)$id;
+         $sentencia->bindParam(":id", $myid);
+         return $sentencia->execute();
         }
     }

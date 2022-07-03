@@ -14,7 +14,7 @@ $action = isset($_POST["action"]) ? $_POST["action"] : $_GET["action"];
 
 switch ($action) {
 
-case "createalimento":
+case "createAlimento":
     $nombre = $_POST['nombre'];
     $cantidad = $_POST['cantidad'];
     $medida = $_POST['medida'];
@@ -28,7 +28,7 @@ case "createalimento":
     
     break;
 
-case "getalimento":
+case "getAlimento":
         $reg = new Alimento();
         $respuesta = $reg->getAlimentobyID($_GET["id"]);
         header("Content-Type: application/json; charset=UTF8");
@@ -36,7 +36,7 @@ case "getalimento":
         echo($json);
         break;
 
-case "getallalimentos":
+case "getAllAlimentos":
     $reg = new Alimento();
     $alimentolist = $reg->getAllAlimentos();
     header("Content-Type: application/json; charset=UTF8");
@@ -45,7 +45,7 @@ case "getallalimentos":
     echo($json);
         break;
 
-case "updatealimento":
+case "updateAlimento":
     $id = $_POST['id'];
     $nombre = $_POST['nombre'];
     $cantidad = $_POST['cantidad'];
@@ -55,7 +55,7 @@ case "updatealimento":
     header("Location: ../view/listarAlimentos.php");
     break;
 
-case "deletealimento":
+case "deleteAlimento":
     $reg = new Alimento();
     $id = $_POST['id'];
     if($reg->deleteAlimentobyID($id)){

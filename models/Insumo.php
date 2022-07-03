@@ -21,24 +21,40 @@ class Insumo{
     }
 
     function getAllInsumos(){
-        $conexion = new ConexionPDO();
-        return $conexion->mysql->query("SELECT * FROM insumo");
+        $conexion = new ConexionPDO();       
+        $sentencia = $conexion->mysql->query("SELECT * FROM insumo");
+        $sentencia->execute();
+        // fetchall responde con dos arreglos, uno de key=value y keyposition=value
+        $respuesta=$sentencia->fetchAll();
+        // convierte la respuesta sql en un arreglo de usuarios
+        foreach($respuesta as $r){
+            $insumo = new Insumo();
+            $insumo->id=$r[0];
+            $insumo->nombre=$r[1];
+            $insumo->cantidad=$r[2];
+            $insumo->medida=$r[3];
+            $lista[] = $insumo;
+        }
+        // Devuelve la lista (arreglo de usuarios)
+                return $lista;
     }
     function getInsumobyID($id){
         $conexion = new ConexionPDO();
-        $sql = $conexion->mysql->prepare("SELECT * FROM insumo WHERE id = :id ");
-        
-        $sql->bindParam(":id", $id);
-        if($sql->execute()){
-            $res = $sql->fetch();
-            $h = new Insumo();
-            $h->id = $res[0];
-            $h->nombre = $res[1];
-            $h->cantidad = $res[2];
-            $h->medida = $res[3];
-            return $h;
+        $sql = "SELECT * FROM insumo WHERE id = :id";
+        $sentencia = $conexion->mysql->prepare($sql);
+        $myid = (int)$id;
+        $sentencia->bindParam(":id", $myid);
+        $sentencia->execute();
+        $res = array();
+        $res = $sentencia->fetch();
+        $h = new Insumo();
+        $h->id = $res[0];
+        $h->nombre = $res[1];
+        $h->cantidad = $res[2];
+        $h->medida = $res[3];
+        return $h;
         }
-    }
+    
 
     function updateInsumo($id, $nombre, $cantidad, $medida){
         $conexion = new ConexionPDO();

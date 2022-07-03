@@ -21,23 +21,39 @@ class Alimento{
     }
 
     function getAllAlimentos(){
-        $conexion = new ConexionPDO();
-        return $conexion->mysql->query("SELECT * FROM alimento");
+        $conexion = new ConexionPDO();       
+        $sentencia = $conexion->mysql->query("SELECT * FROM alimento");
+        $sentencia->execute();
+        // fetchall responde con dos arreglos, uno de key=value y keyposition=value
+        $respuesta=$sentencia->fetchAll();
+        // convierte la respuesta sql en un arreglo de usuarios
+        foreach($respuesta as $r){
+            $alimento = new Alimento();
+            $alimento->id=$r[0];
+            $alimento->nombre=$r[1];
+            $alimento->cantidad=$r[2];
+            $alimento->medida=$r[3];
+            $lista[] = $alimento;
+        }
+        // Devuelve la lista (arreglo de usuarios)
+                return $lista;
+        
     }
     function getAlimentobyID($id){
         $conexion = new ConexionPDO();
-        $sql = $conexion->mysql->prepare("SELECT * FROM alimento WHERE id = :id ");
-        
-        $sql->bindParam(":id", $id);
-        if($sql->execute()){
-            $res = $sql->fetch();
-            $h = new Alimento();
-            $h->id = $res[0];
-            $h->nombre = $res[1];
-            $h->cantidad = $res[2];
-            $h->medida = $res[3];
-            return $h;
-        }
+        $sql = "SELECT * FROM alimento WHERE id = :id";
+        $sentencia = $conexion->mysql->prepare($sql);
+        $myid = (int)$id;
+        $sentencia->bindParam(":id", $myid);
+        $sentencia->execute();
+        $res = array();
+        $res = $sentencia->fetch();
+        $h = new Alimento();
+        $h->id = $res[0];
+        $h->nombre = $res[1];
+        $h->cantidad = $res[2];
+        $h->medida = $res[3];
+        return $h;
     }
 
     function updateAlimento($id, $nombre, $cantidad, $medida){

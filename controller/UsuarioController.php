@@ -45,7 +45,7 @@ case "deleteUsuario":
         break;
     };
 
-case "updateusuario":
+case "updateUsuario":
         $id = $_POST['id'];
         $username = $_POST['username'];
         $password = $_POST['password'];

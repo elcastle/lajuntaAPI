@@ -23,11 +23,19 @@ class usuario {
 
     function getUsuariobyID($id){
         $conexion = new ConexionPDO();
-        $sql = "SELECT FROM usuario WHERE 'id' IS :id";
-         $sentencia = $conexion->mysql->prepare($sql);
-         $sentencia->bindParam(":id", $r->$id);
-         $sentencia->execute();
-         return $sentencia->fetch();
+        $sql = "SELECT * FROM usuario WHERE id = :id";
+        $sentencia = $conexion->mysql->prepare($sql);
+        $myid = (int)$id;
+        $sentencia->bindParam(":id", $myid);
+        $sentencia->execute();
+        $res = array();
+        $res = $sentencia->fetch();
+        $h = new Usuario();
+        $h->id = $res[0];
+        $h->username = $res[1];
+        $h->password = $res[2];
+        $h->id_cargo = $res[3];
+        return $h;
          
     }
     function getAllUsuarios(){
