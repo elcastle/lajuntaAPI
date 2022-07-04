@@ -10,7 +10,7 @@ class usuario {
     public $id_cargo;
 
 
-    function createUsuario($username, $password, $id_cargo){
+    function createUsuario($username, $password, $correo, $id_cargo){
         $conexion = new ConexionPDO();
         
         $sql = "INSERT INTO usuario (username, password, id_cargo, correo) VALUES (:username, :password, :correo, :id_cargo)";
@@ -35,7 +35,8 @@ class usuario {
         $h->id = $res[0];
         $h->username = $res[1];
         $h->password = $res[2];
-        $h->id_cargo = $res[3];
+        $h->correo = $res[3];
+        $h->id_cargo = $res[4];
         return $h;
          
     }
@@ -51,14 +52,15 @@ class usuario {
             $usuario->id=$r[0];
             $usuario->username=$r[1];
             $usuario->password=$r[2];
-            $usuario->id_cargo=$r[3];
+            $usuario->correo=$r[3];
+            $usuario->id_cargo=$r[4];
             $lista[] = $usuario;
         }
         // Devuelve la lista (arreglo de usuarios)
                 return $lista;
             }
 
-    function updateUsuario($id, $username, $password, $id_cargo){
+    function updateUsuario($id, $username, $password, $correo, $id_cargo){
         $conexion = new ConexionPDO();
         $sql = "UPDATE usuario SET username = :username, password = :password, correo = :correo, id_cargo = :id_cargo WHERE id = :id;";
         $sentencia = $conexion->mysql->prepare($sql);
