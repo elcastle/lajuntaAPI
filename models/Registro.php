@@ -54,7 +54,7 @@ class Registro {
         $conexion = new ConexionPDO();
         $sql = "SELECT FROM registro WHERE 'id' IS :id";
          $sentencia = $conexion->mysql->prepare($sql);
-         $sentencia->bindParam(":id", $r->$id);
+         $sentencia->bindParam(":id", $id);
          $sentencia->execute();
          return $sentencia->fetch();
          
