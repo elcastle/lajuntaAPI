@@ -13,10 +13,11 @@ class usuario {
     function createUsuario($username, $password, $id_cargo){
         $conexion = new ConexionPDO();
         
-        $sql = "INSERT INTO usuario (username, password, id_cargo) VALUES (:username, :password, :id_cargo)";
+        $sql = "INSERT INTO usuario (username, password, id_cargo, correo) VALUES (:username, :password, :correo, :id_cargo)";
         $sentencia = $conexion->mysql->prepare($sql);
         $sentencia->bindParam(":username", $username);
         $sentencia->bindParam(":password", $password);
+        $sentencia->bindParam(":correo", $correo);
         $sentencia->bindParam(":id_cargo", $id_cargo);
         return $sentencia->execute();
     }
@@ -59,10 +60,11 @@ class usuario {
 
     function updateUsuario($id, $username, $password, $id_cargo){
         $conexion = new ConexionPDO();
-        $sql = "UPDATE usuario SET username = :username, password = :password, id_cargo = :id_cargo WHERE id = :id;";
+        $sql = "UPDATE usuario SET username = :username, password = :password, correo = :correo, id_cargo = :id_cargo WHERE id = :id;";
         $sentencia = $conexion->mysql->prepare($sql);
         $sentencia->bindParam(":username", $username);
         $sentencia->bindParam(":password", $password);
+        $sentencia->bindParam(":correo", $correo);
         $sentencia->bindParam(":id_cargo", $id_cargo);
         $sentencia->bindParam(":id", $id);
         return $sentencia->execute();

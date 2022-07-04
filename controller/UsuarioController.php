@@ -17,9 +17,10 @@ switch ($action) {
 case "createUsuario":
         $username = $_POST['username'];
         $password = $_POST['password'];
+        $correo = $_POST['correo'];
         $id_cargo = $_POST['id_cargo'];
         $reg = new Usuario();
-        if($reg->createUsuario($username, $password, $id_cargo)){
+        if($reg->createUsuario($username, $password, $correo, $id_cargo)){
             echo("Usuario creado exitosamente.");
         }else{
             echo("Hubo un error al crear el usuario.");
@@ -49,10 +50,11 @@ case "updateUsuario":
         $id = $_POST['id'];
         $username = $_POST['username'];
         $password = $_POST['password'];
+        $correo = $_POST['correo'];
         $id_cargo = $_POST['id_cargo'];
         $reg = new Usuario();
-        if($reg->updateUsuario($id, $username, $password, $id_cargo)){
-            echo("usuario actualizado.");
+        if($reg->updateUsuario($id, $username, $password, $correo, $id_cargo)){
+            echo("usuario actualizado."); 
             break;
         }else{
             echo("Error, el usuario no pudo ser actualizado.");
