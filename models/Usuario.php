@@ -13,7 +13,7 @@ class usuario {
     function createUsuario($username, $password, $correo, $id_cargo){
         $conexion = new ConexionPDO();
         
-        $sql = "INSERT INTO usuario (username, password, id_cargo, correo) VALUES (:username, :password, :correo, :id_cargo)";
+        $sql = "INSERT INTO usuario (username, password, correo, id_cargo) VALUES (:username, :password, :correo, :id_cargo)";
         $sentencia = $conexion->mysql->prepare($sql);
         $sentencia->bindParam(":username", $username);
         $sentencia->bindParam(":password", $password);
