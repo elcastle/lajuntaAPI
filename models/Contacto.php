@@ -33,7 +33,7 @@ class Contacto{
             $contacto->nombre=$r[1];
             $contacto->correo=$r[2];
             $contacto->fono=$r[3];
-            $contacto->comentario=$r[3];
+            $contacto->comentario=$r[4];
             $lista[] = $contacto;
         }
         return $lista;

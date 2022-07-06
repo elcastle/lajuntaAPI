@@ -68,10 +68,11 @@ class Alimento{
     }
 
     function deleteAlimentobyID($id){
-        $conexion = new ConexionPDO();
-        $sql = "DELETE FROM alimento WHERE 'id'= :id";
-        $sentencia = $conexion->mysql->prepare($sql);
-        $sentencia->bindParam(":id", $id);
-        return $sentencia->execute();
+        $conexion = new ConexionPDO(); 
+        $sql = "DELETE FROM alimento WHERE id = :id";
+         $sentencia = $conexion->mysql->prepare($sql);
+         $myid = (int)$id;
+         $sentencia->bindParam(":id", $myid);
+         return $sentencia->execute();
         }
     }
