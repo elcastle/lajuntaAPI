@@ -13,7 +13,7 @@ $result = "";
 $action = isset($_POST["action"]) ? $_POST["action"] : $_GET["action"];
 
 switch ($action) {
-
+// devuelve una lista con todos los objetos registro de la tabla registro
 case"getAllRegistros":
     $reg = new Registro();
     $registrolist = $reg->getAllRegistro();
@@ -22,7 +22,7 @@ case"getAllRegistros":
     $json=json_encode($registrolist, JSON_PRETTY_PRINT, JSON_UNESCAPED_UNICODE);
     echo($json);
         break;
-
+// elimina un registro recibiendo el id por post
 case "deleteRegistro":
     $reg = new Registro();
     $id = $_POST['id'];
@@ -33,7 +33,7 @@ case "deleteRegistro":
         echo("Error, el registro no pudo ser eliminado.");
         break;
     };
-
+// devuelve un registro recibiendo el id por get
 case "getRegistro":
     $reg = new Registro();
     $respuesta = $reg->getRegistrobyID($_GET["id"]);
@@ -42,6 +42,8 @@ case "getRegistro":
     echo($json);
     break;
 
+
+    // recibe las fechas de inicio y termino por post
 case "checkhabitaciones":
     $fecha_inicio=$_POST['fechaI'];
     $fecha_termino=$_POST['fechaT'];
@@ -54,11 +56,13 @@ case "checkhabitaciones":
     // devuelve una lista con el id de las habitaciones libres
     $arraylibres= array_diff($arraytodas, $arrayocupadas);
     $lista = array();
+    // genera una lista con los objetos de habitacion en base al id de habitaciones libres
     foreach($arraylibres as $r){ 
     $h = $hab->getHabitacionbyID($r);
     $lista[] = $h;
     }
     header("Content-Type: application/json; charset=UTF8");
+    // devuelve un json con un array de las habitaciones libres
     $json=json_encode($lista, JSON_PRETTY_PRINT, JSON_UNESCAPED_UNICODE);
     echo($json);
     break;
